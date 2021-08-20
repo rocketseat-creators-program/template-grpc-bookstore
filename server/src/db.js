@@ -1,4 +1,4 @@
-const { accessSync, constants, readFileSync, writeFileSync } = require('fs')
+const { accessSync, constants, readFileSync, writeFileSync, mkdirSync } = require('fs')
 const path = require('path')
 const crypto = require('crypto')
 
@@ -15,6 +15,7 @@ class DB {
       accessSync(this.#dbPath, constants.F_OK)
       this.load()
     } catch (error) {
+      mkdirSync(path.dirname(this.#dbPath), { recursive: true })
       this.save()
     }
   }
